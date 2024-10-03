@@ -27,6 +27,6 @@ class LinearSearch {
 		if (index == -1) 
 			System.out.println("Element is not present in the array"); 
 		else
-			System.out.println("Element found at position " + index); 
+			System.out.println("Element found at position " + index);
 	} 
 } 
