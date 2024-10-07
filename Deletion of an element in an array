@@ -36,14 +36,22 @@ int main() {
     cout << "Original array: ";
     display(arr, n);
 
+    int element;
+    cout << "Enter the element to delete: ";
+    cin >> element;
     int p;
-    cout << "Enter the position to delete: ";
-    cin >> p;
+    for(int i=0;i<n;i++){
+       if( arr[i] == element){
+          p = i;
+          break;
+       }
+    }
 
-    deleteElement(arr, n, p-1);
+    deleteElement(arr, n, p);
 
     cout << "Array after deletion: ";
     display(arr, n);
 
     return 0;
 }
+
