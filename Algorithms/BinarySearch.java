@@ -1,6 +1,4 @@
-// Java implementation of iterative Binary Search
 
-import java.io.*;
 
 class BinarySearch {
   
