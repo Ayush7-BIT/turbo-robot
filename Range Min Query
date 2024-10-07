@@ -1,0 +1,89 @@
+public class RangeMinQuery {
+
+    static int[] blk; 
+    static int blkSize;
+    static int[][] table; 
+
+    public static void preprocessSqrt(int[] nums, int n) {
+        blkSize = (int) Math.sqrt(n);
+        blk = new int[(n + blkSize - 1) / blkSize]; 
+
+        for (int i = 0; i < blk.length; i++) {
+            blk[i] = Integer.MAX_VALUE;
+        }
+
+        for (int i = 0; i < n; i++) {
+            blk[i / blkSize] = Math.min(blk[i / blkSize], nums[i]);
+        }
+    }
+
+    public static int querySqrt(int[] nums, int l, int r) {
+        if (l < 0 || r >= nums.length || l > r) {
+            System.out.println("Invalid query range");
+            return -1;
+        }
+
+        int min = Integer.MAX_VALUE;
+
+        while (l <= r && l % blkSize != 0) {
+            min = Math.min(min, nums[l]);
+            l++;
+        }
+
+        while (l + blkSize - 1 <= r) {
+            min = Math.min(min, blk[l / blkSize]);
+            l += blkSize;
+        }
+
+        while (l <= r) {
+            min = Math.min(min, nums[l]);
+            l++;
+        }
+
+        return min;
+    }
+
+    public static void preprocessSparse(int[] nums, int n) {
+        int logSize = (int) Math.floor(Math.log(n) / Math.log(2)) + 1;
+        table = new int[n][logSize];
+
+        for (int i = 0; i < n; i++) {
+            table[i][0] = nums[i];
+        }
+
+        for (int j = 1; (1 << j) <= n; j++) {
+            for (int i = 0; (i + (1 << j)) <= n; i++) {
+                table[i][j] = Math.min(table[i][j - 1], table[i + (1 << (j - 1))][j - 1]);
+            }
+        }
+    }
+
+    public static int querySparse(int l, int r) {
+        if (l < 0 || r >= table.length || l > r) {
+            System.out.println("Invalid query range");
+            return -1;
+        }
+
+        int logVal = (int) Math.floor(Math.log(r - l + 1) / Math.log(2));
+        return Math.min(table[l][logVal], table[r - (1 << logVal) + 1][logVal]);
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {4, 6, 1, 9, 8, 3, 2, 7, 5, 10};
+        int n = nums.length;
+
+        preprocessSqrt(nums, n);
+        System.out.println("Square Root Decomposition:");
+        System.out.println("Min in range (1, 4): " + querySqrt(nums, 1, 4)); 
+        System.out.println("Min in range (2, 6): " + querySqrt(nums, 2, 6)); 
+        System.out.println("Min in range (5, 9): " + querySqrt(nums, 5, 9));
+        System.out.println("Min in range (0, 10): " + querySqrt(nums, 0, 10)); 
+
+        preprocessSparse(nums, n);
+        System.out.println("Sparse Table:");
+        System.out.println("Min in range (1, 4): " + querySparse(1, 4)); 
+        System.out.println("Min in range (2, 6): " + querySparse(2, 6)); 
+        System.out.println("Min in range (5, 9): " + querySparse(5, 9)); 
+        System.out.println("Min in range (0, 10): " + querySparse(0, 10)); 
+    }
+}
