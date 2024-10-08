@@ -1,0 +1,47 @@
+public class StoogeSort {
+    
+    // Stooge Sort function
+    static void stoogeSort(int[] arr, int l, int h) {
+        // Base case: If the lower index is greater than or equal to higher, return
+        if (l >= h)
+            return;
+
+        // If the first element is greater than the last, swap them
+        if (arr[l] > arr[h]) {
+            int temp = arr[l];
+            arr[l] = arr[h];
+            arr[h] = temp;
+        }
+
+        // If the array has more than 2 elements
+        if (h - l + 1 > 2) {
+            int t = (h - l + 1) / 3; // Find one-third of the current segment length
+
+            // Recursively sort the first 2/3 of the array
+            stoogeSort(arr, l, h - t);
+
+            // Recursively sort the last 2/3 of the array
+            stoogeSort(arr, l + t, h);
+
+            // Recursively sort the first 2/3 again
+            stoogeSort(arr, l, h - t);
+        }
+    }
+
+    // Main function to test Stooge Sort
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 9, 1, 5, 6};
+        
+        System.out.println("Original array:");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        
+        stoogeSort(arr, 0, arr.length - 1);
+
+        System.out.println("\nSorted array:");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+    }
+}
