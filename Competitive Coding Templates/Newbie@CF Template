@@ -1,0 +1,72 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    
+    // Type definitions 
+    static final long MOD = 1000000007;
+    static final int INF = 1000000000;
+    static final long LLINF = 1000000000000000000L;
+    static final double PI = Math.acos(-1.0);
+
+    // Utility functions
+    static long gcd(long a, long b) { return b != 0 ? gcd(b, a % b) : a; }
+    static long lcm(long a, long b) { return a / gcd(a, b) * b; }
+    static long mod_add(long a, long b, long m) { return (a % m + b % m) % m; }
+    static long mod_sub(long a, long b, long m) { return (a % m - b % m + m) % m; }
+    static long mod_mul(long a, long b, long m) { return (a % m * b % m) % m; }
+    
+    static long mod_pow(long b, long p, long m) {
+        long r = 1;
+        while (p > 0) {
+            if ((p & 1) != 0) r = mod_mul(r, b, m);
+            b = mod_mul(b, b, m);
+            p >>= 1;
+        }
+        return r;
+    }
+
+    // Utility method to print a variable number of arguments
+    static void print(Object... args) {
+        for (Object arg : args) {
+            System.out.print(arg + " ");
+        }
+        System.out.println();
+    }
+
+    // Problem-solving function
+    static void solve(BufferedReader br) throws IOException {
+        // Read input
+        int n = Integer.parseInt(br.readLine());
+        long[] a = new long[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            a[i] = Long.parseLong(st.nextToken());
+        }
+
+        // Example: Calculate sum and product of array elements
+        long sum = 0, product = 1;
+        for (long x : a) {
+            sum = mod_add(sum, x, MOD);
+            product = mod_mul(product, x, MOD);
+        }
+
+        // Print results
+        print("Sum:", sum);
+        print("Product:", product);
+    }
+
+    // Main function
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(System.out);
+
+        // Fast I/O
+        int t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            solve(br);
+        }
+
+        out.flush();  // Ensure all output is written
+    }
+}
