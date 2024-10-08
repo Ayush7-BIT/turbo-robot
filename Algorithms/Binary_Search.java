@@ -1,4 +1,4 @@
- class BinarySearch {
+ class binarysearch {
     private static int binarySearch(int numArray[], int number_to_search_for) {
         int low = 0;
         int high = numArray.length - 1;

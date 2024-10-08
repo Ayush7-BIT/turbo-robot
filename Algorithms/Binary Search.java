@@ -1,7 +1,5 @@
 // Java implementation of iterative Binary Search
 
-import java.io.*;
-
 class BinarySearch {
   
     // Returns index of x if it is present in arr[].
@@ -37,7 +35,7 @@ class BinarySearch {
     // Driver code
     public static void main(String args[])
     {
-        BinarySearch ob = new BinarySearch();
+        binarySearch ob = new binarySearch();
         int arr[] = { 2, 3, 4, 10, 40 };
         int x = 10;
         int result = ob.binarySearch(arr, x);

@@ -1,4 +1,4 @@
-public class BinarySearch {
+public class binarySearch {
 
     // Binary Search using iterative method
     public static int binarySearch(int[] arr, int target) {
