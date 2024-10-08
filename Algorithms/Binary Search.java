@@ -7,6 +7,11 @@ class BinarySearch {
     // Returns index of x if it is present in arr[].
     int binarySearch(int arr[], int x)
     {
+        // Check if the array is null or empty
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
+      
         int low = 0, high = arr.length - 1;
         while (low <= high) {
             int mid = low + (high - low) / 2;
@@ -34,7 +39,6 @@ class BinarySearch {
     {
         BinarySearch ob = new BinarySearch();
         int arr[] = { 2, 3, 4, 10, 40 };
-        int n = arr.length;
         int x = 10;
         int result = ob.binarySearch(arr, x);
         if (result == -1)
