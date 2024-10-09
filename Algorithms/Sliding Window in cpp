@@ -1,0 +1,21 @@
+
+// Returns maximum sum in a subarray of size k.
+int maxSum(int arr[], int n, int k)
+{
+    // Initialize result
+    int max_sum = INT_MIN;
+
+    
+    for (int i = 0; i < n - k + 1; i++) {
+        int currentsum = 0;
+        for (int j = 0; j < k; j++)
+            currentsum +=arr[i + j];
+
+      
+        max_sum = max(currentsum, max_sum);
+    }
+
+    return max_sum;
+}
+// O(n*k) solution for finding maximum sum of
+// a subarray of size k
