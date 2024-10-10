@@ -1,0 +1,39 @@
+class CustomStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+        self.max_stack = []
+
+    def push(self, x: int) -> None:
+        # Push the element onto the main stack
+        self.stack.append(x)
+        
+        # Update the min_stack and max_stack
+        if not self.min_stack or x <= self.min_stack[-1]:
+            self.min_stack.append(x)
+        if not self.max_stack or x >= self.max_stack[-1]:
+            self.max_stack.append(x)
+
+    def pop(self) -> int:
+        # Pop the element from the main stack
+        popped_value = self.stack.pop()
+        
+        # Update the min_stack and max_stack
+        if popped_value == self.min_stack[-1]:
+            self.min_stack.pop()
+        if popped_value == self.max_stack[-1]:
+            self.max_stack.pop()
+
+        return popped_value
+
+    def peek(self) -> int:
+        # Peek the top element of the stack
+        return self.stack[-1] if self.stack else None
+
+    def min(self) -> int:
+        # Retrieve the minimum element
+        return self.min_stack[-1] if self.min_stack else None
+
+    def max(self) -> int:
+        # Retrieve the maximum element
+        return self.max_stack[-1] if self.max_stack else None
