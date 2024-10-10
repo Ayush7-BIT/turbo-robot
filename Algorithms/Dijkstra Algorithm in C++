@@ -1,0 +1,79 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits>
+
+using namespace std;
+
+typedef pair<int, int> pii; // Pair of (distance, vertex)
+
+class Graph {
+public:
+    Graph(int vertices);
+    void addEdge(int u, int v, int weight);
+    void dijkstra(int start);
+
+private:
+    int vertices; // Number of vertices
+    vector<vector<pii>> adj; // Adjacency list
+};
+
+Graph::Graph(int vertices) : vertices(vertices) {
+    adj.resize(vertices);
+}
+
+void Graph::addEdge(int u, int v, int weight) {
+    adj[u].emplace_back(weight, v); // Add edge from u to v with given weight
+    adj[v].emplace_back(weight, u); // Uncomment this line for undirected graph
+}
+
+void Graph::dijkstra(int start) {
+    vector<int> dist(vertices, numeric_limits<int>::max()); // Distance from start to each vertex
+    priority_queue<pii, vector<pii>, greater<pii>> pq; // Min-heap priority queue
+
+    dist[start] = 0; // Distance to the start vertex is 0
+    pq.emplace(0, start); // Push the start vertex into the priority queue
+
+    while (!pq.empty()) {
+        int currentDist = pq.top().first; // Get the smallest distance
+        int currentVertex = pq.top().second;
+        pq.pop();
+
+        // If the current distance is greater than the stored distance, skip it
+        if (currentDist > dist[currentVertex]) continue;
+
+        // Explore the neighbors
+        for (const auto& neighbor : adj[currentVertex]) {
+            int weight = neighbor.first;
+            int nextVertex = neighbor.second;
+
+            // Relaxation step
+            if (dist[currentVertex] + weight < dist[nextVertex]) {
+                dist[nextVertex] = dist[currentVertex] + weight;
+                pq.emplace(dist[nextVertex], nextVertex); // Push the updated distance into the queue
+            }
+        }
+    }
+
+    // Output the distances
+    for (int i = 0; i < vertices; ++i) {
+        cout << "Distance from vertex " << start << " to vertex " << i << " is " << dist[i] << endl;
+    }
+}
+
+int main() {
+    Graph g(5); // Create a graph with 5 vertices
+    g.addEdge(0, 1, 10);
+    g.addEdge(0, 4, 5);
+    g.addEdge(1, 2, 1);
+    g.addEdge(1, 4, 2);
+    g.addEdge(2, 3, 4);
+    g.addEdge(3, 0, 7);
+    g.addEdge(4, 1, 3);
+    g.addEdge(4, 2, 9);
+    g.addEdge(4, 3, 2);
+
+    g.dijkstra(0); // Run Dijkstra's algorithm from vertex 0
+
+    return 0;
+}
