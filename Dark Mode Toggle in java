@@ -1,0 +1,54 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DarkModeToggle extends JFrame {
+    private boolean isDarkMode = false;
+    private JPanel panel;
+
+    public DarkModeToggle() {
+        setTitle("Dark Mode Toggle Example");
+        setSize(400, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        
+        JButton toggleButton = new JButton("Toggle Dark Mode");
+        toggleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleDarkMode();
+            }
+        });
+
+        panel.add(toggleButton, BorderLayout.SOUTH);
+        add(panel);
+        updateTheme();
+    }
+
+    private void toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        updateTheme();
+    }
+
+    private void updateTheme() {
+        if (isDarkMode) {
+            panel.setBackground(Color.DARK_GRAY);
+            panel.setForeground(Color.WHITE);
+        } else {
+            panel.setBackground(Color.LIGHT_GRAY);
+            panel.setForeground(Color.BLACK);
+        }
+        panel.repaint();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            DarkModeToggle app = new DarkModeToggle();
+            app.setVisible(true);
+        });
+    }
+}
