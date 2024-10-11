@@ -18,29 +18,37 @@ Explanation: The longest consecutive elements sequence is [0, 1, 2, 3, 4, 5, 6, 
 
 int longestConsecutiveSequence(vector<int> v)
 {
-    set<int> s(v.begin(), v.end());
-    vector<int> tmp(s.begin(), s.end());
+    unordered_set<int> s(v.begin(), v.end()); // for O(1) lookups
+    int longest_streak = 0;
 
-    // ans counts the pairs of integers having difference 1
-    int ans = 0;
-
-    for (int i = 0; i < tmp.size() - 1; i++)
+    for (int num : s)
     {
-        if (tmp[i + 1] - tmp[i] == 1)
-            ans++;
-        else
-            break;
+        // Check if it's the start of a sequence
+        if (!s.count(num - 1))
+        {
+            int current_num = num;
+            int current_streak = 1;
+
+            // Keep incrementing to find the longest sequence starting with num
+            while (s.count(current_num + 1))
+            {
+                current_num += 1;
+                current_streak += 1;
+            }
+
+            longest_streak = max(longest_streak, current_streak);
+        }
     }
-    return ans + 1;
+    return longest_streak;
 }
 
 int main()
 {
-    vector<int> v1 = {100, 4, 200, 1, 3, 2};
+    vector<int> v1 = {1, 3, 5, 7, 9};
     int a1 = longestConsecutiveSequence(v1);
     cout << a1 << endl;
 
-    vector<int> v2 = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
+    vector<int> v2 = {0, 1, 7, 2, 5, 8, 4, 6, 0, 1};
     int a2 = longestConsecutiveSequence(v2);
     cout << a2 << endl;
 
