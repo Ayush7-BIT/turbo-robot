@@ -1,0 +1,56 @@
+import java.util.Arrays;
+
+public class RMQ_SqrtDecomposition {
+    private int[] arr;
+    private int[] blockMins;
+    private int blockSize;
+
+    public RMQ_SqrtDecomposition(int[] arr) {
+        this.arr = arr;
+        int n = arr.length;
+        blockSize = (int) Math.sqrt(n);
+        int numBlocks = (n + blockSize - 1) / blockSize;
+        blockMins = new int[numBlocks];
+
+        for (int i = 0; i < numBlocks; i++) {
+            int blockStart = i * blockSize;
+            int blockEnd = Math.min(blockStart + blockSize, n);
+            blockMins[i] = Integer.MAX_VALUE;
+            for (int j = blockStart; j < blockEnd; j++) {
+                blockMins[i] = Math.min(blockMins[i], arr[j]);
+            }
+        }
+    }
+
+    public int rangeMinQuery(int left, int right) {
+        int min = Integer.MAX_VALUE;
+
+        int blockStart = left / blockSize;
+        int blockEnd = right / blockSize;
+
+        if (blockStart == blockEnd) {
+            for (int i = left; i <= right; i++) {
+                min = Math.min(min, arr[i]);
+            }
+        } else {
+            for (int i = left; i < (blockStart + 1) * blockSize; i++) {
+                min = Math.min(min, arr[i]);
+            }
+            for (int i = blockStart + 1; i < blockEnd; i++) {
+                min = Math.min(min, blockMins[i]);
+            }
+            for (int i = blockEnd * blockSize; i <= right; i++) {
+                min = Math.min(min, arr[i]);
+            }
+        }
+        return min;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 2, 7, 9, 11, 2, 8, 4, 6};
+        RMQ_SqrtDecomposition rmq = new RMQ_SqrtDecomposition(arr);
+        
+        System.out.println("Minimum in range (1, 5): " + rmq.rangeMinQuery(1, 5));
+        System.out.println("Minimum in range (0, 9): " + rmq.rangeMinQuery(0, 9));
+    }
+}
