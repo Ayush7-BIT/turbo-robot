@@ -44,7 +44,7 @@ int longestConsecutiveSequence(vector<int> v)
 
 int main()
 {
-    vector<int> v1 = {1, 3, 5, 7, 9};
+    vector<int> v1 = {100, 4, 200, 1, 3, 2};
     int a1 = longestConsecutiveSequence(v1);
     cout << a1 << endl;
 
