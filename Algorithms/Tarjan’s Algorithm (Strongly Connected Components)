@@ -1,0 +1,103 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class TarjansAlgorithm {
+    
+    private int nodeCount;  // Total number of nodes in the graph
+    private List<List<Integer>> graph; // Adjacency list representation of the graph
+    private boolean[] onStack; // Tracks if a node is currently on the stack
+    private int[] ids; // Unique IDs assigned to each node when first visited
+    private int[] low; // Stores the lowest reachable node ID from each node
+    private Stack<Integer> stack; // Stack to manage nodes in the current DFS path
+    private int id = 0; // Initial unique ID for nodes (incremented as nodes are visited)
+    private List<List<Integer>> sccs; // List to store all SCCs (each SCC is a list of nodes)
+    
+    public TarjansAlgorithm(int nodeCount) {
+        // Initialize graph and variables
+        this.nodeCount = nodeCount;
+        graph = new ArrayList<>();
+        onStack = new boolean[nodeCount];
+        ids = new int[nodeCount];
+        low = new int[nodeCount];
+        stack = new Stack<>();
+        sccs = new ArrayList<>();
+        
+        // Initialize adjacency list for each node
+        for (int i = 0; i < nodeCount; i++) {
+            graph.add(new ArrayList<>());
+        }
+    }
+    
+    // Adds a directed edge from node 'from' to node 'to'
+    public void addEdge(int from, int to) {
+        graph.get(from).add(to);
+    }
+    
+    // Main function to find all strongly connected components (SCCs) in the graph
+    public List<List<Integer>> findSCCs() {
+        // Start DFS from every node (in case some nodes are disconnected)
+        for (int i = 0; i < nodeCount; i++) {
+            if (ids[i] == 0) { // Node hasn't been visited
+                dfs(i);
+            }
+        }
+        return sccs; // Return list of SCCs
+    }
+    
+    // Depth-First Search (DFS) function to explore nodes and identify SCCs
+    private void dfs(int at) {
+        // Push the current node onto the stack and mark it as visited
+        stack.push(at);
+        onStack[at] = true;
+        
+        // Set the id and low-link value of the node to the current id, then increment the id
+        ids[at] = low[at] = ++id;
+        
+        // Explore all neighbors of the current node
+        for (int to : graph.get(at)) {
+            if (ids[to] == 0) { // If the neighbor has not been visited
+                dfs(to); // Recurse on the neighbor
+                low[at] = Math.min(low[at], low[to]); // Update the low-link value based on neighbor
+            } else if (onStack[to]) { // If the neighbor is in the stack, it's part of the current SCC
+                low[at] = Math.min(low[at], ids[to]); // Update the low-link value to reflect this
+            }
+        }
+        
+        // After returning from DFS, check if we found the root of an SCC
+        if (ids[at] == low[at]) {
+            List<Integer> scc = new ArrayList<>(); // List to store nodes of this SCC
+            while (true) {
+                int node = stack.pop(); // Pop nodes from the stack until we reach the current node
+                onStack[node] = false; // Mark popped node as no longer in the stack
+                scc.add(node); // Add node to the current SCC list
+                low[node] = ids[at]; // Update low-link to represent SCC ID
+                
+                if (node == at) break; // Stop once we've reached the original starting node
+            }
+            sccs.add(scc); // Add the SCC to the list of all SCCs
+        }
+    }
+    
+    public static void main(String[] args) {
+        // Create a graph with 8 nodes (0 to 7)
+        TarjansAlgorithm tarjans = new TarjansAlgorithm(8);
+        
+        // Define directed edges to create multiple SCCs in the graph
+        tarjans.addEdge(0, 1);
+        tarjans.addEdge(1, 2);
+        tarjans.addEdge(2, 0);
+        tarjans.addEdge(3, 4);
+        tarjans.addEdge(4, 5);
+        tarjans.addEdge(5, 3);
+        tarjans.addEdge(6, 7);
+        
+        // Find and print all SCCs in the graph
+        List<List<Integer>> sccs = tarjans.findSCCs();
+        
+        System.out.println("Strongly Connected Components:");
+        for (List<Integer> scc : sccs) {
+            System.out.println(scc);
+        }
+    }
+}
