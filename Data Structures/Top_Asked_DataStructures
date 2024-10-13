@@ -1,0 +1,23 @@
+Here are some of the top data structure questions frequently asked in Python interviews:
+
+
+1. What are the basic data structures available in Python?
+     Lists, tuples, sets, and dictionaries.
+2. What is the difference between a list and a tuple in Python?
+      Lists are mutable (can be changed), while tuples are immutable (cannot be changed).
+3. How do you implement a stack in Python?
+      Using lists with append() to push and pop() to remove elements.
+4. What is a queue, and how do you implement it in Python?
+     A queue follows the FIFO (First-In-First-Out) principle. It can be implemented using collections.deque or lists.
+5. Explain the difference between append() and extend() in Python lists.
+     append() adds a single element to the end of a list, while extend() adds multiple elements from another iterable.
+6. How do you remove duplicates from a list in Python?
+     By converting the list to a set and then back to a list: my_list = list(set(my_list)).
+7. What are dictionaries in Python?
+    Unordered collections of key-value pairs where each key is unique.
+8. How do you access elements in a dictionary?
+    Using the key inside square brackets or the .get() method.
+9. What is the time complexity of inserting and deleting elements in a list?
+    The average time complexity is (O(n)) because elements need to be shifted in memory.
+10.Explain list slicing in Python.
+    List slicing allows accessing a range of elements by specifying a start and end index: my_list[start:end].
