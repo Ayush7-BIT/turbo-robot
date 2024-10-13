@@ -52,6 +52,19 @@ This repository is part of Hacktoberfest 2024 🎉! Feel free to contribute as p
 
 Note: Make sure your contributions follow the Hacktoberfest guidelines to be counted towards your total. Contributions will only be accepted if they meet the quality standards set by the Hacktoberfest rules.
 
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating MiniPoint to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+  <a href="https://github.com/Ayush7-BIT/turbo-robot">
+    <img src="https://contrib.rocks/image?repo=Ayush7-BIT/turbo-robot&&max=1000" />
+  </a>
+</div>
+
+  
+**We look forward to your contributions during **Hacktoberfest 2024**! 🎃**
 
 Need Help?
 
