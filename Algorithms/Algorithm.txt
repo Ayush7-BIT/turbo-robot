@@ -1,0 +1,14 @@
+Top Algorithm Used in Machine Lerning
+There are numerous machine learning algorithms commonly used in Python, especially with libraries like scikit-learn, TensorFlow, and PyTorch. Here are some of the top algorithms frequently used in machine learning:
+
+Linear Regression
+Logistic Regression
+Decision Trees
+Random Forests
+Support Vector Machines (SVM)
+K-Nearest Neighbors (KNN)
+Naive Bayes
+K-Means Clustering
+Principal Component Analysis (PCA)
+Neural Networks
+These algorithms cover a wide range of tasks, including regression, classification, clustering, and dimensionality reduction
