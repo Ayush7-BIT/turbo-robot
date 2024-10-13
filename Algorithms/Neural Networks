@@ -1,0 +1,45 @@
+Prerequisites
+
+Make sure you have tensorflow, numpy, and pandas installed. You can install them using pip if you haven't already
+# Sample Code start here
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.datasets import load_iris
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target.reshape(-1, 1)
+
+# One-hot encode the target variable
+encoder = OneHotEncoder(sparse=False)
+y_encoded = encoder.fit_transform(y)
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
+
+# Build the neural network model
+model = keras.Sequential([
+    layers.Input(shape=(4,)),  # Input layer with 4 features
+    layers.Dense(10, activation='relu'),  # Hidden layer with 10 neurons
+    layers.Dense(3, activation='softmax')  # Output layer for 3 classes
+])
+
+# Compile the model
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=100, batch_size=5, verbose=1)
+
+# Evaluate the model
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f"Test Accuracy: {accuracy:.2f}")
+
+# Make predictions
+predictions = model.predict(X_test)
+predicted_classes = np.argmax(predictions, axis=1)
+print("Predicted classes:", predicted_classes)
