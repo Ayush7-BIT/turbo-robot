@@ -1,0 +1,47 @@
+Prerequisites
+
+Make sure you have numpy, pandas, scikit-learn, and matplotlib installed. You can install them using pip if you haven't already:
+#Code start here
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, export_text, plot_tree
+import matplotlib.pyplot as plt
+
+# Sample data
+# Let's create a simple dataset for this example
+# Features: Hours Studied, Attendance (binary)
+# Target: Pass (1) or Fail (0)
+data = {
+    'HoursStudied': [1, 2, 3, 4, 5, 6, 7, 8],
+    'Attendance': [0, 1, 1, 0, 1, 1, 0, 1],
+    'Pass': [0, 0, 1, 0, 1, 1, 0, 1]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+# Features and target variable
+X = df[['HoursStudied', 'Attendance']]  # Features (2D array)
+y = df['Pass']  # Target (1D array)
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a Decision Tree Classifier
+model = DecisionTreeClassifier(random_state=42)
+
+# Fit the model to the training data
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+accuracy = model.score(X_test, y_test)
+print("Accuracy:", accuracy)
+
+# Print the decision tree structure
+tree_rules = export_text(model, feature_names=list(X.columns))
+print(tree_rules)
+
+plt.figure(figsize=(10, 6))
+plot_tree(model, feature_names=X.columns, class_names=['Fail', 'Pass'], filled=True)
+plt.title('Decision Tree Visualization')
+plt.show()
