@@ -1,0 +1,25 @@
+public class KadaneAlgorithm {
+    // Function to find the maximum sum of a contiguous subarray
+    public static int maxSubArraySum(int[] arr) {
+        int maxSoFar = arr[0];  // Initialize max sum so far as the first element
+        int currentMax = arr[0]; // Initialize current max sum as the first element
+
+        // Iterate through the array starting from the second element
+        for (int i = 1; i < arr.length; i++) {
+            // Update current max to either the current element or the current max + current element
+            currentMax = Math.max(arr[i], currentMax + arr[i]);
+
+            // Update max so far to the maximum of current max and max so far
+            maxSoFar = Math.max(maxSoFar, currentMax);
+        }
+
+        return maxSoFar; // Return the maximum sum found
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4}; // Example array
+
+        int maxSum = maxSubArraySum(arr); // Call the function to find the max sum
+        System.out.println("Maximum sum of a contiguous subarray is: " + maxSum);
+    }
+}
