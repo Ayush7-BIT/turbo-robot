@@ -1,7 +1,6 @@
     // Added function for solving time interval problem using Line Sweep Algorithm
     int minGroups(vector<vector<int>>& intervals) {
         map<int, int> pointToCount;
-
         // Mark the starting and ending points in the map
         for (vector<int> interval : intervals) {
             pointToCount[interval[0]]++;
