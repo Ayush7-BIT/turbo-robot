@@ -1,5 +1,4 @@
-class Solution {
-public:
+    // Added function for solving time interval problem using Line Sweep Algorithm
     int minGroups(vector<vector<int>>& intervals) {
         map<int, int> pointToCount;
 
@@ -23,4 +22,3 @@ public:
 
         return maxConcurrentIntervals;
     }
-};
