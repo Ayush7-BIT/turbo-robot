@@ -8,10 +8,10 @@ class Solution {
         while(low <= high){
             int mid=(low + high)/2;
 
-            if(matrix[mid/m][mid%n] == target){
+            if(matrix[mid/n][mid%n] == target){
                return true;
             }
-            else if(matrix[mid/m][mid%n] > target){
+            else if(matrix[mid/n][mid%n] > target){
                 high=mid-1;
             }
             else {
