@@ -1,0 +1,65 @@
+class LinkedList {
+    Node head; // Head of the list
+
+    // Node class for linked list
+    static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            next = null;
+        }
+    }
+
+    // Function to detect cycle in the linked list using Hare and Tortoise algorithm
+    public boolean hasCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        // Traverse the list with two pointers
+        while (fast != null && fast.next != null) {
+            slow = slow.next; // Moves one step
+            fast = fast.next.next; // Moves two steps
+
+            // If slow and fast meet, there's a cycle
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        // If fast reaches the end, there's no cycle
+        return false;
+    }
+
+    // Function to create a cycle in the linked list (for testing)
+    public void createCycle() {
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        // Creating a cycle by pointing the last node to the second node
+        temp.next = head.next; 
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        // Creating a linked list
+        list.head = new Node(1);
+        list.head.next = new Node(2);
+        list.head.next.next = new Node(3);
+        list.head.next.next.next = new Node(4);
+        list.head.next.next.next.next = new Node(5);
+
+        // Uncomment the next line to create a cycle in the list
+        // list.createCycle();
+
+        // Check if the linked list has a cycle
+        if (list.hasCycle()) {
+            System.out.println("Cycle detected in the linked list.");
+        } else {
+            System.out.println("No cycle in the linked list.");
+        }
+    }
+}
