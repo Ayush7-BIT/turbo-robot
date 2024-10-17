@@ -7,5 +7,5 @@ function addNumbers(num1, num2) {
 let number1 = 5;
 let number2 = 10;
 
-let result = addNumbers(number1, number2);
+let result = addNumbers(number1, number2); //number added
 console.log("The sum is: " + result);
