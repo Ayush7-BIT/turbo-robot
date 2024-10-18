@@ -1,4 +1,6 @@
-// majority 
+// Algorithm to find Majority elememt that occurs more than n/2 times
+// Time Complexity= O(N)
+// Space Complexity=O(1)
 
 public class MooreVotingAlgorithm {
     public static int majorityElement(int arr[]){
