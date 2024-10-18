@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "LongestPrefixSuffix",
+      "request": "launch",
+      "mainClass": "LongestPrefixSuffix",
+      "projectName": "turbo-robot_5c6dbc15"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
