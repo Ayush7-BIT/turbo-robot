@@ -43,3 +43,4 @@ class RangeMinimumQuerySparseTable {
         System.out.println("Minimum of range (0, 4): " + rmq.query(0, 4));
     }
 }
+
