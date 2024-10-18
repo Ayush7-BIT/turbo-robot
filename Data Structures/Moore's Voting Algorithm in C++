@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to find the majority element using Moore's Voting Algorithm
+int mooresVotingAlgorithm(const vector<int>& nums) {
+    int candidate = -1;
+    int count = 0;
+
+    // Phase 1: Find a candidate for majority element
+    for (const int& num : nums) {
+        if (count == 0) {
+            candidate = num;
+        }
+        count += (num == candidate) ? 1 : -1;
+    }
+
+    // Phase 2: Validate the candidate
+    count = 0;
+    for (const int& num : nums) {
+        if (num == candidate) {
+            count++;
+        }
+    }
+
+    // Return candidate if it is indeed the majority element
+    return (count > nums.size() / 2) ? candidate : -1;
+}
+
+// Main function for command-line interaction
+int main() {
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    vector<int> nums(n);
+    cout << "Enter the elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    // Execute Moore's Voting Algorithm
+    int majorityElement = mooresVotingAlgorithm(nums);
+
+    // Output the result
+    if (majorityElement != -1) {
+        cout << "The majority element is: " << majorityElement << endl;
+    } else {
+        cout << "There is no majority element." << endl;
+    }
+
+    return 0;
+}
+
