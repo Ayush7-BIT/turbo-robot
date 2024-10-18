@@ -1,0 +1,81 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <limits>
+
+using namespace std;
+
+// Structure for storing edge data
+struct Edge {
+    int to, weight;
+};
+
+// Function to implement Dijkstra's algorithm
+vector<int> dijkstra(int start, const vector<vector<Edge>>& adj) {
+    int n = adj.size();
+    vector<int> dist(n, numeric_limits<int>::max()); // Distance from start to each node
+    dist[start] = 0;
+
+    // Min-heap priority queue to store {distance, node}
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        int curr_dist = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        // If we have already found a better path before, skip
+        if (curr_dist > dist[node]) continue;
+
+        // Explore all neighbors of the current node
+        for (const Edge& edge : adj[node]) {
+            int new_dist = curr_dist + edge.weight;
+
+            // If a shorter path is found
+            if (new_dist < dist[edge.to]) {
+                dist[edge.to] = new_dist;
+                pq.push({new_dist, edge.to});
+            }
+        }
+    }
+
+    return dist;
+}
+
+// Main function to read input from command line
+int main() {
+    int n, m; // Number of nodes and edges
+
+    cout << "Enter number of nodes and edges: ";
+    cin >> n >> m;
+
+    vector<vector<Edge>> adj(n);
+
+    cout << "Enter the edges (from, to, weight): " << endl;
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w}); // If the graph is undirected, otherwise remove this line
+    }
+
+    int start;
+    cout << "Enter the start node: ";
+    cin >> start;
+
+    // Run Dijkstra's algorithm
+    vector<int> distances = dijkstra(start, adj);
+
+    // Output the shortest distances to all nodes
+    cout << "Shortest distances from node " << start << ":" << endl;
+    for (int i = 0; i < n; i++) {
+        if (distances[i] == numeric_limits<int>::max()) {
+            cout << "Node " << i << ": " << "unreachable" << endl;
+        } else {
+            cout << "Node " << i << ": " << distances[i] << endl;
+        }
+    }
+
+    return 0;
+}
