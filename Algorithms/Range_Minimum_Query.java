@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 class RangeMinimumQuerySQRT {
     int[] arr, blocks;
     int blockSize;
